@@ -9,114 +9,120 @@ Widget bottomNavigationBarWidget() {
   return BlocBuilder<ApplicationBloc, ApplicationState>(
     builder: (context, state) {
       return Container(
-        height: 60,
-        margin: EdgeInsets.only(bottom: 35.h, left: 15.w, right: 15.w),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            GestureDetector(
-              child: Column(
-                children: [
-                  SizedBox(
-                    width: 35.w,
-                    child: Image.asset(
-                      "assets/icons/home.png",
-                      color: state.index == 0
-                          ? ColorProvider.mainElement
-                          : ColorProvider.secondaryElement,
+        width: 375.w,
+        color: ColorProvider.mainBackground,
+        child: Container(
+          height: 50.h,
+          color: ColorProvider.mainBackground,
+          margin:
+              EdgeInsets.only(bottom: 35.h, left: 15.w, right: 15.w, top: 10.h),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              GestureDetector(
+                child: Column(
+                  children: [
+                    SizedBox(
+                      width: 35.w,
+                      child: Image.asset(
+                        "assets/icons/home.png",
+                        color: state.index == 0
+                            ? ColorProvider.mainElement
+                            : ColorProvider.secondaryElement,
+                      ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 5.h,
-                  ),
-                  Container(
-                    width: 7.w,
-                    height: 7.w,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: state.index == 0
-                          ? ColorProvider.mainElement
-                          : ColorProvider.mainBackground,
+                    SizedBox(
+                      height: 5.h,
                     ),
-                  )
-                ],
+                    Container(
+                      width: 7.w,
+                      height: 7.w,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: state.index == 0
+                            ? ColorProvider.mainElement
+                            : ColorProvider.mainBackground,
+                      ),
+                    )
+                  ],
+                ),
+                onTap: () {
+                  context.go('/home');
+                  context
+                      .read<ApplicationBloc>()
+                      .add(const ChangeApplicationIndexEvent(0));
+                },
               ),
-              onTap: () {
-                context.go('/home');
-                context
-                    .read<ApplicationBloc>()
-                    .add(const ChangeApplicationIndexEvent(0));
-              },
-            ),
-            GestureDetector(
-              child: Column(
-                children: [
-                  SizedBox(
-                    width: 35.w,
-                    child: Image.asset(
-                      "assets/icons/chat.png",
-                      color: state.index == 1
-                          ? ColorProvider.mainElement
-                          : ColorProvider.secondaryElement,
+              GestureDetector(
+                child: Column(
+                  children: [
+                    SizedBox(
+                      width: 35.w,
+                      child: Image.asset(
+                        "assets/icons/chat.png",
+                        color: state.index == 1
+                            ? ColorProvider.mainElement
+                            : ColorProvider.secondaryElement,
+                      ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 5.h,
-                  ),
-                  Container(
-                    width: 7.w,
-                    height: 7.w,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: state.index == 1
-                          ? ColorProvider.mainElement
-                          : ColorProvider.mainBackground,
+                    SizedBox(
+                      height: 5.h,
                     ),
-                  )
-                ],
+                    Container(
+                      width: 7.w,
+                      height: 7.w,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: state.index == 1
+                            ? ColorProvider.mainElement
+                            : ColorProvider.mainBackground,
+                      ),
+                    )
+                  ],
+                ),
+                onTap: () {
+                  context.go('/chat');
+                  context
+                      .read<ApplicationBloc>()
+                      .add(const ChangeApplicationIndexEvent(1));
+                },
               ),
-              onTap: () {
-                context.go('/chat');
-                context
-                    .read<ApplicationBloc>()
-                    .add(const ChangeApplicationIndexEvent(1));
-              },
-            ),
-            GestureDetector(
-              child: Column(
-                children: [
-                  SizedBox(
-                    width: 35.w,
-                    child: Image.asset(
-                      "assets/icons/profile.png",
-                      color: state.index == 2
-                          ? ColorProvider.mainElement
-                          : ColorProvider.secondaryElement,
+              GestureDetector(
+                child: Column(
+                  children: [
+                    SizedBox(
+                      width: 35.w,
+                      child: Image.asset(
+                        "assets/icons/profile.png",
+                        color: state.index == 2
+                            ? ColorProvider.mainElement
+                            : ColorProvider.secondaryElement,
+                      ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 5.h,
-                  ),
-                  Container(
-                    width: 7.w,
-                    height: 7.w,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: state.index == 2
-                          ? ColorProvider.mainElement
-                          : ColorProvider.mainBackground,
+                    SizedBox(
+                      height: 5.h,
                     ),
-                  )
-                ],
+                    Container(
+                      width: 7.w,
+                      height: 7.w,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: state.index == 2
+                            ? ColorProvider.mainElement
+                            : ColorProvider.mainBackground,
+                      ),
+                    )
+                  ],
+                ),
+                onTap: () {
+                  context.go('/profile');
+                  context
+                      .read<ApplicationBloc>()
+                      .add(const ChangeApplicationIndexEvent(2));
+                },
               ),
-              onTap: () {
-                context.go('/profile');
-                context
-                    .read<ApplicationBloc>()
-                    .add(const ChangeApplicationIndexEvent(2));
-              },
-            ),
-          ],
+            ],
+          ),
         ),
       );
     },

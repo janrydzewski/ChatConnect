@@ -12,4 +12,8 @@ class ColorProvider {
   static const mainText = Color.fromARGB(255, 46, 59, 90);
   
   static const secondaryText = Color.fromARGB(255, 35, 37, 42);
+  
+  static const thirdText = Color.fromARGB(255, 63, 66, 76);
+
+  static const fourthText = Color.fromARGB(255, 175, 180, 190);
 }

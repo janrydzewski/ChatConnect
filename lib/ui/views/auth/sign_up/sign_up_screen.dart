@@ -27,49 +27,51 @@ class _SignUpScreenState extends State<SignUpScreen> {
       height: 812.h,
       child: Scaffold(
         backgroundColor: ColorProvider.secondaryBackground,
-        body: Container(
-          width: 375.w,
-          height: 812.h,
-          margin: EdgeInsets.symmetric(
-            horizontal: 30.w,
-            vertical: 100.h,
-          ),
-          decoration: BoxDecoration(
-            color: ColorProvider.mainBackground,
-            borderRadius: BorderRadius.circular(30),
-          ),
-          alignment: Alignment.center,
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              reusableAuthText("Sign Up"),
-              Form(
-                key: _formKey,
-                child: Column(
-                  children: [
-                    reusableAuthTextField("First Name", _firstNameController),
-                reusableAuthTextField("Last Name", _lastNameController),
-                reusableAuthTextField("Email", _emailController),
-                reusableAuthTextField("Password", _passwordController),
-                  ],
+        body: SafeArea(
+          child: Container(
+            width: 375.w,
+            height: 812.h,
+            margin: EdgeInsets.symmetric(
+              horizontal: 30.w,
+              vertical: 100.h,
+            ),
+            decoration: BoxDecoration(
+              color: ColorProvider.mainBackground,
+              borderRadius: BorderRadius.circular(30),
+            ),
+            alignment: Alignment.center,
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                reusableAuthText("Sign Up"),
+                Form(
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                      reusableAuthTextField("First Name", _firstNameController),
+                  reusableAuthTextField("Last Name", _lastNameController),
+                  reusableAuthTextField("Email", _emailController),
+                  reusableAuthTextField("Password", _passwordController),
+                    ],
+                  ),
                 ),
-              ),
-              
-              reusableAuthButton("Confirm", () {
-                _formKey.currentState!.validate() ? 
-                context.read<AuthBloc>().add(
-                      SignUpEvent(
-                          _firstNameController.text,
-                          _lastNameController.text,
-                          _emailController.text,
-                          _passwordController.text),
-                    ) : null;
-              }),
-              reusableAuthChangeCardText("Already have an account? Sign In",
-                  () {
-                context.go("/signIn");
-              }),
-            ],
+                
+                reusableAuthButton("Confirm", () {
+                  _formKey.currentState!.validate() ? 
+                  context.read<AuthBloc>().add(
+                        SignUpEvent(
+                            _firstNameController.text,
+                            _lastNameController.text,
+                            _emailController.text,
+                            _passwordController.text),
+                      ) : null;
+                }),
+                reusableAuthChangeCardText("Already have an account? Sign In",
+                    () {
+                  context.go("/signIn");
+                }),
+              ],
+            ),
           ),
         ),
       ),

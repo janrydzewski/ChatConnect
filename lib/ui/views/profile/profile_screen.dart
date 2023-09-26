@@ -15,9 +15,22 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
-    return SizedBox(width: 375.w, height: 812.h, child: Scaffold(backgroundColor: ColorProvider.mainBackground, body: Center(child: ElevatedButton(onPressed: () {
-      context.read<AuthBloc>().add(SignOutEvent());
-      context.go("/signIn");
-    }, child: Text("Log Out"),)),),);
+    return SizedBox(
+      width: 375.w,
+      height: 812.h,
+      child: Scaffold(
+        backgroundColor: ColorProvider.mainBackground,
+        body: SafeArea(
+          child: Center(
+              child: ElevatedButton(
+            onPressed: () {
+              context.read<AuthBloc>().add(SignOutEvent());
+              context.go("/signIn");
+            },
+            child: Text("Log Out"),
+          )),
+        ),
+      ),
+    );
   }
 }

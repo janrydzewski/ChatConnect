@@ -16,21 +16,13 @@ class _ApplicationScreenState extends State<ApplicationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorProvider.mainBackground,
-      body: SizedBox(
-        height: 812.h,
-        width: 375.w,
-        child: Stack(
-          children: [
-            widget.child,
-            Positioned(
-              bottom: 0,
-              left: 0,
-              right: 0,
-              child: bottomNavigationBarWidget(),
-            ),
-          ],
-        ),
-      ),
+      body: Container(
+          height: 812.h,
+          width: 375.w,
+          child: Scaffold(
+            body: widget.child,
+            bottomNavigationBar: bottomNavigationBarWidget(),
+          )),
     );
   }
 }

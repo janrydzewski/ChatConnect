@@ -1,1 +1,2 @@
 export 'application/application_bloc.dart';
+export 'auth/auth_bloc.dart';

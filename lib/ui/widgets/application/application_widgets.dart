@@ -110,7 +110,7 @@ Widget bottomNavigationBarWidget() {
                 ],
               ),
               onTap: () {
-                context.go('/home');
+                context.go('/profile');
                 context
                     .read<ApplicationBloc>()
                     .add(const ChangeApplicationIndexEvent(2));

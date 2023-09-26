@@ -1,3 +1,4 @@
+import 'package:chat_connect/resources/resources.dart';
 import 'package:chat_connect/ui/ui.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -7,7 +8,8 @@ class MyRouter {
       GlobalKey<NavigatorState>();
 
   late final GoRouter router = GoRouter(
-    initialLocation: '/signUp',
+    initialLocation:
+        firebaseAuth.currentUser == null ? '/signIn' : '/home',
     navigatorKey: _rootNavigatorKey,
     routes: [
       GoRoute(
@@ -62,7 +64,7 @@ class MyRouter {
             path: '/profile',
             pageBuilder: (context, state) {
               return const NoTransitionPage(
-                child: FlutterLogo()
+                child: ProfileScreen(),
               );
             },
           ),

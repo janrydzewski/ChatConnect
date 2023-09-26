@@ -1,6 +1,8 @@
+import 'package:chat_connect/bloc/bloc.dart';
 import 'package:chat_connect/resources/colors/colors.dart';
 import 'package:chat_connect/ui/ui.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
@@ -12,10 +14,11 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-  final firstNameController = TextEditingController();
-  final lastNameController = TextEditingController();
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
+  final _firstNameController = TextEditingController();
+  final _lastNameController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -40,15 +43,32 @@ class _SignUpScreenState extends State<SignUpScreen> {
             mainAxisSize: MainAxisSize.max,
             children: [
               reusableAuthText("Sign Up"),
-              reusableAuthTextField("First Name", firstNameController),
-              reusableAuthTextField("Last Name", lastNameController),
-              reusableAuthTextField("Email", emailController),
-              reusableAuthTextField("Password", passwordController),
-              reusableAuthButton("Confirm", () => null),
-              reusableAuthChangeCardText(
-                  "Already have an account? Sign In", () {
-                    context.go("/signIn");
-                  }),
+              Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    reusableAuthTextField("First Name", _firstNameController),
+                reusableAuthTextField("Last Name", _lastNameController),
+                reusableAuthTextField("Email", _emailController),
+                reusableAuthTextField("Password", _passwordController),
+                  ],
+                ),
+              ),
+              
+              reusableAuthButton("Confirm", () {
+                _formKey.currentState!.validate() ? 
+                context.read<AuthBloc>().add(
+                      SignUpEvent(
+                          _firstNameController.text,
+                          _lastNameController.text,
+                          _emailController.text,
+                          _passwordController.text),
+                    ) : null;
+              }),
+              reusableAuthChangeCardText("Already have an account? Sign In",
+                  () {
+                context.go("/signIn");
+              }),
             ],
           ),
         ),

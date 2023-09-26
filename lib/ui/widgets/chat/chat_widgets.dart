@@ -4,7 +4,7 @@ import 'package:chat_connect/ui/ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-reusableMainMessageWidget({required MessageModel messageModel}) {
+reusableMainMessageWidget({required ChatModel chatModel}) {
   return Container(
     width: 375.w,
     height: 85.h,
@@ -29,13 +29,13 @@ reusableMainMessageWidget({required MessageModel messageModel}) {
               children: [
                 Container(
                   alignment: Alignment.centerLeft,
-                  child: reusableMessageText(messageModel.sender,
+                  child: reusableMessageText(chatModel.lastSender,
                       fontSize: 20, fontColor: ColorProvider.thirdText),
                 ),
                 Container(
                   alignment: Alignment.centerLeft,
                   child: reusableMessageText(
-                    messageModel.message,
+                    chatModel.lastMessage,
                     maxLines: 2,
                     fontSize: 13,
                     fontColor: ColorProvider.fourthText,
@@ -51,7 +51,7 @@ reusableMainMessageWidget({required MessageModel messageModel}) {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               reusableMessageText(
-                  "${DateTime.now().difference(messageModel.date).inMinutes} minutes",
+                  "${DateTime.now().difference(chatModel.lastMessageDate).inMinutes} minutes",
                   fontSize: 13),
               Container(
                 width: 30.w,

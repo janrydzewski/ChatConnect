@@ -10,6 +10,8 @@ import 'package:chat_connect/router/router.dart';
 import 'repositories/repositories.dart';
 
 void main() async {
+  Bloc.observer = MyBlocObserver();
+
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp();
@@ -30,8 +32,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RepositoryProvider(
-      create: (context) => AuthRepository(),
+    return MultiRepositoryProvider(
+      providers: [
+        RepositoryProvider(
+          create: (context) => const AuthRepository(),
+        ),
+        RepositoryProvider(
+          create: (context) => const ChatRepository(),
+        ),
+      ],
       child: MultiBlocProvider(
         providers: [
           BlocProvider(
@@ -40,6 +49,10 @@ class MyApp extends StatelessWidget {
           BlocProvider(
             create: (context) => AuthBloc(
                 authRepository: RepositoryProvider.of<AuthRepository>(context)),
+          ),
+          BlocProvider(
+            create: (context) => ChatBloc(
+                chatRepository: RepositoryProvider.of<ChatRepository>(context)),
           ),
         ],
         child: ScreenUtilInit(

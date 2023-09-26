@@ -25,7 +25,7 @@ class _MessagesScreenState extends State<MessagesScreen> {
               Expanded(
                 child: Container(
                   width: 375.w,
-                  margin: EdgeInsets.only(top: 50.h),
+                  margin: EdgeInsets.only(top: 40.h),
                   decoration: const BoxDecoration(
                     color: ColorProvider.mainBackground,
                     borderRadius: BorderRadius.only(

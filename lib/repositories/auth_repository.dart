@@ -4,6 +4,8 @@ import 'package:chat_connect/models/models.dart';
 import 'package:chat_connect/resources/resources.dart';
 
 class AuthRepository {
+  const AuthRepository();
+
   Future<void> signUp(
       {required String firstName,
       required String lastName,

@@ -1,8 +1,12 @@
-import 'package:chat_connect/models/models.dart';
-import 'package:chat_connect/ui/ui.dart';
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:chat_connect/bloc/bloc.dart';
+import 'package:chat_connect/resources/resources.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+
+import 'package:chat_connect/ui/ui.dart';
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({super.key});
@@ -12,6 +16,12 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
+  @override
+  void initState() {
+    context.read<ChatBloc>().add(const GetUserChatsEvent());
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -39,19 +49,45 @@ class _ChatScreenState extends State<ChatScreen> {
                 margin: EdgeInsets.symmetric(horizontal: 25.w),
                 child: reusableText("Messages", fontSize: 34),
               ),
-              Expanded(
-                child: ListView.builder(
-                  itemCount: 20,
-                  itemBuilder: (context, index) {
-                    return GestureDetector(
-                      onTap: () {
-                        context.go("/chat/message");
-                      },
-                      child: reusableMainMessageWidget(
-                          messageModel: MessageModel.testMessage()),
+              BlocConsumer<ChatBloc, ChatState>(
+                listener: (context, state) {
+                  if (state is ChatError) {
+                    print(state.message);
+                  }
+                },
+                builder: (context, state) {
+                  if (state is ChatLoading) {
+                    return Expanded(
+                      child: const Center(
+                        child: CircularProgressIndicator(
+                          color: ColorProvider.mainElement,
+                        ),
+                      ),
                     );
-                  },
-                ),
+                  } else if (state.chatModelList.isNotEmpty) {
+                    final chatModelList = state.chatModelList;
+                    return Expanded(
+                      child: ListView.builder(
+                        itemCount: 20,
+                        itemBuilder: (context, index) {
+                          return GestureDetector(
+                            onTap: () {
+                              context.go("/chat/message");
+                            },
+                            child: reusableMainMessageWidget(
+                                chatModel: chatModelList[0]),
+                          );
+                        },
+                      ),
+                    );
+                  }
+                  return const Expanded(
+                      child: Center(
+                    child: CircularProgressIndicator(
+                      color: ColorProvider.mainElement,
+                    ),
+                  ));
+                },
               ),
             ],
           ),

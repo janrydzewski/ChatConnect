@@ -70,6 +70,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     children: [
                       BlocBuilder<UserBloc, UserState>(
                         builder: (context, state) {
+                          if (state is UserLoading) {
+                            return const Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          }
                           return Column(
                             children: [
                               Container(
@@ -77,11 +82,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     borderRadius: BorderRadius.circular(20),
                                     color: ColorProvider.mainBackground
                                         .withOpacity(0.5)),
-                                child: userState.userModel.photoUrl.isNotEmpty
+                                child: state.userModel.photoUrl.isNotEmpty
                                     ? SizedBox(
                                         width: 80.w,
                                         child: Image.network(
-                                            userState.userModel.photoUrl,
+                                            state.userModel.photoUrl,
                                             fit: BoxFit.cover),
                                       )
                                     : Icon(
@@ -211,7 +216,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                           context.read<EditProfileBloc>().add(
                                               EditProfileDetailsEvent(
                                                   userModel));
-                                          
+
                                           context.pop();
                                         })
                                       ],

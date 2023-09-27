@@ -14,8 +14,8 @@ reusableMainMessageWidget({required ChatModel chatModel}) {
         Container(
           width: 75.w,
           height: 75.w,
-          decoration: const BoxDecoration(
-              shape: BoxShape.circle, color: ColorProvider.fourthText),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20), color: ColorProvider.secondaryBackground.withOpacity(0.8)),
           child: Icon(
             Icons.person,
             size: 65.w,
@@ -71,7 +71,7 @@ reusableMainMessageWidget({required ChatModel chatModel}) {
   );
 }
 
-reusableAppBar(String text) {
+reusableChatAppBar(String text) {
   return AppBar(
     backgroundColor: ColorProvider.secondaryBackground,
     shadowColor: Colors.transparent,

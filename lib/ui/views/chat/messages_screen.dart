@@ -21,7 +21,7 @@ class _MessagesScreenState extends State<MessagesScreen> {
         body: SafeArea(
           child: Column(
             children: [
-              reusableAppBar("Martyna Pietranik"),
+              reusableChatAppBar("Martyna Pietranik"),
               Expanded(
                 child: Container(
                   width: 375.w,

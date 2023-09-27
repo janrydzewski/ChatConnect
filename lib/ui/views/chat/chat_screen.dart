@@ -57,8 +57,8 @@ class _ChatScreenState extends State<ChatScreen> {
                 },
                 builder: (context, state) {
                   if (state is ChatLoading) {
-                    return Expanded(
-                      child: const Center(
+                    return const Expanded(
+                      child: Center(
                         child: CircularProgressIndicator(
                           color: ColorProvider.mainElement,
                         ),
@@ -75,7 +75,7 @@ class _ChatScreenState extends State<ChatScreen> {
                               context.go("/chat/message");
                             },
                             child: reusableMainMessageWidget(
-                                chatModel: chatModelList[0]),
+                                chatModel: chatModelList[1]),
                           );
                         },
                       ),

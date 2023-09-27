@@ -40,6 +40,9 @@ class MyApp extends StatelessWidget {
         RepositoryProvider(
           create: (context) => const ChatRepository(),
         ),
+        RepositoryProvider(
+          create: (context) => const UserRepository(),
+        ),
       ],
       child: MultiBlocProvider(
         providers: [
@@ -53,6 +56,10 @@ class MyApp extends StatelessWidget {
           BlocProvider(
             create: (context) => ChatBloc(
                 chatRepository: RepositoryProvider.of<ChatRepository>(context)),
+          ),
+          BlocProvider(
+            create: (context) => UserBloc(
+                userRepository: RepositoryProvider.of<UserRepository>(context)),
           ),
         ],
         child: ScreenUtilInit(

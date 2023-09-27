@@ -18,9 +18,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     try {
       final chatModelList =
           await chatRepository.getChatModelList(firebaseAuth.currentUser!.uid);
-      emit(
-        ChatState(chatModelList: chatModelList),
-      );
+      emit(state.copyWith(chatModelList: chatModelList));
     } catch (e) {
       emit(ChatError(message: e.toString()));
     }

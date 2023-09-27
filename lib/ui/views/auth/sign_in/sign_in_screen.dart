@@ -31,7 +31,7 @@ class _SignUpScreenState extends State<SignInScreen> {
             height: 812.h,
             margin: EdgeInsets.symmetric(
               horizontal: 30.w,
-              vertical: 100.h,
+              vertical: 50.h,
             ),
             decoration: BoxDecoration(
               color: ColorProvider.mainBackground,

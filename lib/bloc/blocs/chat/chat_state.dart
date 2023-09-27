@@ -7,6 +7,14 @@ class ChatState extends Equatable {
     List<ChatModel>? chatModelList,
   }) : chatModelList = chatModelList ?? const [];
 
+  ChatState copyWith({
+    List<ChatModel>? chatModelList,
+  }) {
+    return ChatState(
+      chatModelList: chatModelList ?? this.chatModelList,
+    );
+  }
+
   @override
   List<Object> get props => [chatModelList];
 }

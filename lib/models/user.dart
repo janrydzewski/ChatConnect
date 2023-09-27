@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class UserModel {
   final String id;
   final String firstName;
@@ -14,8 +16,6 @@ class UserModel {
     required this.email,
     this.photoUrl = "",
   });
-
-  
 
   UserModel copyWith({
     String? id,
@@ -53,9 +53,20 @@ class UserModel {
     );
   }
 
+  static UserModel fromSnap(DocumentSnapshot snapshot) {
+    return UserModel(
+      id: snapshot['id'],
+      firstName: snapshot['firstName'],
+      lastName: snapshot['lastName'],
+      email: snapshot['email'],
+      photoUrl: snapshot['photoUrl'],
+    );
+  }
+
   String toJson() => json.encode(toMap());
 
-  factory UserModel.fromJson(String source) => UserModel.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory UserModel.fromJson(String source) =>
+      UserModel.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() {
@@ -65,21 +76,20 @@ class UserModel {
   @override
   bool operator ==(covariant UserModel other) {
     if (identical(this, other)) return true;
-  
-    return 
-      other.id == id &&
-      other.firstName == firstName &&
-      other.lastName == lastName &&
-      other.email == email &&
-      other.photoUrl == photoUrl;
+
+    return other.id == id &&
+        other.firstName == firstName &&
+        other.lastName == lastName &&
+        other.email == email &&
+        other.photoUrl == photoUrl;
   }
 
   @override
   int get hashCode {
     return id.hashCode ^
-      firstName.hashCode ^
-      lastName.hashCode ^
-      email.hashCode ^
-      photoUrl.hashCode;
+        firstName.hashCode ^
+        lastName.hashCode ^
+        email.hashCode ^
+        photoUrl.hashCode;
   }
 }

@@ -14,7 +14,7 @@ class UserModel {
     required this.firstName,
     required this.lastName,
     required this.email,
-    this.photoUrl = "",
+    required this.photoUrl,
   });
 
   UserModel copyWith({

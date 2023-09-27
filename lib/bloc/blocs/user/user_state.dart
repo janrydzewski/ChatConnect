@@ -5,7 +5,7 @@ class UserState extends Equatable {
 
   const UserState({
     UserModel? userModel,
-  }) : userModel = userModel ?? const UserModel(id: "", firstName: "", lastName: "", email: "");
+  }) : userModel = userModel ?? const UserModel(id: "", firstName: "", lastName: "", email: "", photoUrl: "");
 
   UserState copyWith({
     UserModel? userModel,

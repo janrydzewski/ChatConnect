@@ -24,7 +24,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   }
 
   void _onUserDataChanged(UserDataChanged event, Emitter<UserState> emit) {
-    emit(UserLoading());
+    emit(const UserLoading());
     try {
       emit(state.copyWith(userModel: event.userData));
     } catch (e) {

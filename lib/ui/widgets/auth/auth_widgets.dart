@@ -65,6 +65,7 @@ reusableAuthTextField(
         hintText: text,
         hintStyle: GoogleFonts.robotoCondensed(fontSize: 14.sp),
       ),
+      style: GoogleFonts.robotoCondensed(fontSize: 15.sp),
       autovalidateMode: AutovalidateMode.onUserInteraction,
       validator: (value) {
         if (text == "Email") {

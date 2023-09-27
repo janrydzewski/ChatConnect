@@ -61,6 +61,10 @@ class MyApp extends StatelessWidget {
             create: (context) => UserBloc(
                 userRepository: RepositoryProvider.of<UserRepository>(context)),
           ),
+          BlocProvider(
+            create: (context) => EditProfileBloc(
+                userRepository: RepositoryProvider.of<UserRepository>(context)),
+          ),
         ],
         child: ScreenUtilInit(
           designSize: const Size(375, 812),

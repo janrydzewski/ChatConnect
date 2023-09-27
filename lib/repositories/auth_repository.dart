@@ -23,6 +23,7 @@ class AuthRepository {
         firstName: firstName,
         lastName: lastName,
         email: email,
+        photoUrl: "",
       );
 
       await firebaseFirestore

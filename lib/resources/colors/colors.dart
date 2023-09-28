@@ -16,4 +16,8 @@ class ColorProvider {
   static const thirdText = Color.fromARGB(255, 63, 66, 76);
 
   static const fourthText = Color.fromARGB(255, 175, 180, 190);
+
+  static const fromMessage = Color.fromARGB(255, 86,123,243);
+
+  static const toMessage = Color.fromARGB(255, 247,248,255);
 }

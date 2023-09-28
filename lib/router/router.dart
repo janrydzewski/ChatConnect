@@ -54,14 +54,16 @@ class MyRouter {
             },
             routes: <RouteBase>[
               GoRoute(
-                path: 'message',
-                pageBuilder: (context, state) => CustomTransitionPage(
-                  child: const MessagesScreen(),
-                  transitionsBuilder:
-                      (context, animation, secondaryAnimation, child) =>
-                          FadeTransition(opacity: animation, child: child),
-                ),
-              ),
+                  path: 'message',
+                  pageBuilder: (context, state) {
+                    final chatId = state.extra as String;
+                    return CustomTransitionPage(
+                      child: MessagesScreen(chatId: chatId,),
+                      transitionsBuilder:
+                          (context, animation, secondaryAnimation, child) =>
+                              FadeTransition(opacity: animation, child: child),
+                    );
+                  }),
             ],
           ),
           GoRoute(

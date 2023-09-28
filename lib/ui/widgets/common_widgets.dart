@@ -41,6 +41,24 @@ reusableMessageText(String text,
   );
 }
 
+reusableChatText(String text,
+    {double fontSize = 24,
+    Color fontColor = ColorProvider.mainText,
+    FontWeight fontWeight = FontWeight.w500,
+    double letterSpacing = 0,
+    TextAlign textAlign = TextAlign.start,}) {
+  return Text(
+    text,
+    textAlign: textAlign,
+
+    style: GoogleFonts.montserrat(
+        fontSize: fontSize.sp,
+        color: fontColor,
+        fontWeight: fontWeight,
+        letterSpacing: letterSpacing,),
+  );
+}
+
 loadingWidget() {
   return const Center(child: CircularProgressIndicator(color: ColorProvider.mainText,),);
 }

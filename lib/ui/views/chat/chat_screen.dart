@@ -62,14 +62,14 @@ class _ChatScreenState extends State<ChatScreen> {
                     final chatModelList = state.chatModelList;
                     return Expanded(
                       child: ListView.builder(
-                        itemCount: 20,
+                        itemCount: chatModelList.length,
                         itemBuilder: (context, index) {
                           return GestureDetector(
                             onTap: () {
-                              context.go("/chat/message");
+                              context.go("/chat/message", extra: chatModelList[index].id);
                             },
                             child: reusableMainMessageWidget(
-                                chatModel: chatModelList[1]),
+                                chatModel: chatModelList[index]),
                           );
                         },
                       ),

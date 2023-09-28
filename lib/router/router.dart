@@ -52,19 +52,6 @@ class MyRouter {
             pageBuilder: (context, state) {
               return const NoTransitionPage(child: ChatScreen());
             },
-            routes: <RouteBase>[
-              GoRoute(
-                  path: 'message',
-                  pageBuilder: (context, state) {
-                    final chatId = state.extra as String;
-                    return CustomTransitionPage(
-                      child: MessagesScreen(chatId: chatId,),
-                      transitionsBuilder:
-                          (context, animation, secondaryAnimation, child) =>
-                              FadeTransition(opacity: animation, child: child),
-                    );
-                  }),
-            ],
           ),
           GoRoute(
             name: 'Profile',
@@ -76,6 +63,21 @@ class MyRouter {
             },
           ),
         ],
+      ),
+      GoRoute(
+        name: "Message",
+        path: '/message',
+        pageBuilder: (context, state) {
+          final chatId = state.extra as String;
+          return CustomTransitionPage(
+            child: MessagesScreen(
+              chatId: chatId,
+            ),
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) =>
+                    FadeTransition(opacity: animation, child: child),
+          );
+        },
       ),
     ],
     errorPageBuilder: (context, state) => CustomTransitionPage(

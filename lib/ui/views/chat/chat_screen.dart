@@ -67,10 +67,10 @@ class _ChatScreenState extends State<ChatScreen> {
                         itemBuilder: (context, index) {
                           return GestureDetector(
                             onTap: () {
-                              context.go("/chat/message",
+                              context.go("/message",
                                   extra: chatModelList[index].id);
                             },
-                            child: reusableMainMessageWidget(
+                            child: ChatElementWidget(
                                 chatModel: chatModelList[index]),
                           );
                         },

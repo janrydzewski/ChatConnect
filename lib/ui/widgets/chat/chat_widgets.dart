@@ -4,8 +4,28 @@ import 'package:chat_connect/ui/ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-reusableMainMessageWidget({required ChatModel chatModel}) {
-  return Container(
+
+
+class ChatElementWidget extends StatefulWidget {
+  final ChatModel chatModel;
+  const ChatElementWidget({super.key, required this.chatModel});
+
+  @override
+  State<ChatElementWidget> createState() => _ChatElementWidgetState();
+}
+
+class _ChatElementWidgetState extends State<ChatElementWidget> {
+  
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
     width: 375.w,
     height: 85.h,
     margin: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
@@ -15,7 +35,8 @@ reusableMainMessageWidget({required ChatModel chatModel}) {
           width: 75.w,
           height: 75.w,
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20), color: ColorProvider.secondaryBackground.withOpacity(0.8)),
+              borderRadius: BorderRadius.circular(20),
+              color: ColorProvider.secondaryBackground.withOpacity(0.8)),
           child: Icon(
             Icons.person,
             size: 65.w,
@@ -29,13 +50,13 @@ reusableMainMessageWidget({required ChatModel chatModel}) {
               children: [
                 Container(
                   alignment: Alignment.centerLeft,
-                  child: reusableMessageText(chatModel.lastSender,
+                  child: reusableMessageText(widget.chatModel.lastSender,
                       fontSize: 20, fontColor: ColorProvider.thirdText),
                 ),
                 Container(
                   alignment: Alignment.centerLeft,
                   child: reusableMessageText(
-                    chatModel.lastMessage,
+                    widget.chatModel.lastMessage,
                     maxLines: 2,
                     fontSize: 13,
                     fontColor: ColorProvider.fourthText,
@@ -51,7 +72,7 @@ reusableMainMessageWidget({required ChatModel chatModel}) {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               reusableMessageText(
-                  "${DateTime.now().difference(chatModel.lastMessageDate).inMinutes} minutes",
+                  "${DateTime.now().difference(widget.chatModel.lastMessageDate).inMinutes} minutes",
                   fontSize: 13),
               Container(
                 width: 30.w,
@@ -69,19 +90,5 @@ reusableMainMessageWidget({required ChatModel chatModel}) {
       ],
     ),
   );
-}
-
-reusableChatAppBar(String text) {
-  return AppBar(
-    backgroundColor: ColorProvider.secondaryBackground,
-    shadowColor: Colors.transparent,
-    title: reusableMessageText(text),
-    iconTheme: const IconThemeData(color: ColorProvider.mainText),
-    actions: [
-      IconButton(
-        onPressed: () {},
-        icon: const Icon(Icons.info_outline),
-      ),
-    ],
-  );
+  }
 }

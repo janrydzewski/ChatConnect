@@ -1,11 +1,11 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:chat_connect/bloc/bloc.dart';
-import 'package:chat_connect/resources/resources.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
+import 'package:chat_connect/bloc/bloc.dart';
+import 'package:chat_connect/resources/resources.dart';
 import 'package:chat_connect/ui/ui.dart';
 
 class ChatScreen extends StatefulWidget {
@@ -70,7 +70,7 @@ class _ChatScreenState extends State<ChatScreen> {
                               context.go("/message",
                                   extra: chatModelList[index].id);
                             },
-                            child: ChatElementWidget(
+                            child: reusableMainMessageWidget(
                                 chatModel: chatModelList[index]),
                           );
                         },

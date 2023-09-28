@@ -4,28 +4,8 @@ import 'package:chat_connect/ui/ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-
-
-class ChatElementWidget extends StatefulWidget {
-  final ChatModel chatModel;
-  const ChatElementWidget({super.key, required this.chatModel});
-
-  @override
-  State<ChatElementWidget> createState() => _ChatElementWidgetState();
-}
-
-class _ChatElementWidgetState extends State<ChatElementWidget> {
-  
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
+reusableMainMessageWidget({required ChatModel chatModel}) {
+  return Container(
     width: 375.w,
     height: 85.h,
     margin: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
@@ -50,13 +30,13 @@ class _ChatElementWidgetState extends State<ChatElementWidget> {
               children: [
                 Container(
                   alignment: Alignment.centerLeft,
-                  child: reusableMessageText(widget.chatModel.lastSender,
+                  child: reusableMessageText(chatModel.lastSender,
                       fontSize: 20, fontColor: ColorProvider.thirdText),
                 ),
                 Container(
                   alignment: Alignment.centerLeft,
                   child: reusableMessageText(
-                    widget.chatModel.lastMessage,
+                    chatModel.lastMessage,
                     maxLines: 2,
                     fontSize: 13,
                     fontColor: ColorProvider.fourthText,
@@ -72,7 +52,7 @@ class _ChatElementWidgetState extends State<ChatElementWidget> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               reusableMessageText(
-                  "${DateTime.now().difference(widget.chatModel.lastMessageDate).inMinutes} minutes",
+                  "${DateTime.now().difference(chatModel.lastMessageDate).inMinutes} minutes",
                   fontSize: 13),
               Container(
                 width: 30.w,
@@ -90,5 +70,5 @@ class _ChatElementWidgetState extends State<ChatElementWidget> {
       ],
     ),
   );
-  }
 }
+

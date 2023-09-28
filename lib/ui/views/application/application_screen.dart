@@ -26,9 +26,7 @@ class _ApplicationScreenState extends State<ApplicationScreen> {
         },
         builder: (context, state) {
           if (state is UserLoading) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
+            return loadingWidget();
           }
           if (state.userModel.id.isNotEmpty) {
             return SizedBox(

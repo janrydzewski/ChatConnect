@@ -57,13 +57,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 },
                 builder: (context, state) {
                   if (state is ChatLoading) {
-                    return const Expanded(
-                      child: Center(
-                        child: CircularProgressIndicator(
-                          color: ColorProvider.mainElement,
-                        ),
-                      ),
-                    );
+                    return Expanded(child: loadingWidget());
                   } else if (state.chatModelList.isNotEmpty) {
                     final chatModelList = state.chatModelList;
                     return Expanded(

@@ -41,4 +41,6 @@ reusableMessageText(String text,
   );
 }
 
-
+loadingWidget() {
+  return const Center(child: CircularProgressIndicator(color: ColorProvider.mainText,),);
+}

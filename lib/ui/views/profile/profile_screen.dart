@@ -85,14 +85,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 child: state.userModel.photoUrl.isNotEmpty
                                     ? SizedBox(
                                         width: 80.w,
+                                        height: 80.h,
                                         child: Image.network(
-                                            state.userModel.photoUrl,
-                                            fit: BoxFit.cover),
+                                          state.userModel.photoUrl,
+                                          loadingBuilder: (BuildContext context,
+                                              Widget child,
+                                              ImageChunkEvent?
+                                                  loadingProgress) {
+                                            if (loadingProgress == null) {
+                                              return child;
+                                            }
+                                            return loadingWidget();
+                                          },
+                                        ),
                                       )
                                     : Icon(
                                         Icons.person,
                                         size: 80.w,
                                       ),
+                              ),
+                              SizedBox(
+                                height: 50.h,
                               ),
                               reusableProfileText(
                                   "${state.userModel.firstName} ${state.userModel.lastName}"),
@@ -139,31 +152,40 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                             .secondaryBackground
                                                             .withOpacity(0.4)),
                                                     child: state.file.path != ""
-                                                        ? ClipOval(
-                                                            child: SizedBox(
-                                                              width: 80.w,
-                                                              child: Image.file(
-                                                                File(state
-                                                                    .file.path),
-                                                                fit: BoxFit
-                                                                    .cover,
-                                                              ),
+                                                        ? SizedBox(
+                                                            width: 80.w,
+                                                            child: Image.file(
+                                                              File(state
+                                                                  .file.path),
+                                                              fit: BoxFit.cover,
                                                             ),
                                                           )
                                                         : userState
                                                                 .userModel
                                                                 .photoUrl
                                                                 .isNotEmpty
-                                                            ? ClipOval(
-                                                                child: SizedBox(
+                                                            ? SizedBox(
                                                                 width: 80.w,
-                                                                child: Image.network(
-                                                                    userState
-                                                                        .userModel
-                                                                        .photoUrl,
-                                                                    fit: BoxFit
-                                                                        .cover),
-                                                              ))
+                                                                height: 80.h,
+                                                                child: Image
+                                                                    .network(
+                                                                  userState
+                                                                      .userModel
+                                                                      .photoUrl,
+                                                                  loadingBuilder: (BuildContext
+                                                                          context,
+                                                                      Widget
+                                                                          child,
+                                                                      ImageChunkEvent?
+                                                                          loadingProgress) {
+                                                                    if (loadingProgress ==
+                                                                        null) {
+                                                                      return child;
+                                                                    }
+                                                                    return loadingWidget();
+                                                                  },
+                                                                ),
+                                                              )
                                                             : Icon(
                                                                 Icons.person,
                                                                 size: 80.w,

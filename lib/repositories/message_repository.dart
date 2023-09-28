@@ -14,11 +14,11 @@ class MessageRepository {
           .collection("chat")
           .doc(id)
           .collection("messages")
+          .orderBy("date", descending: false)
           .get();
       messageCollection.docs.forEach((element) {
         messageModelList.add(MessageModel.fromSnap(element));
       });
-
       return messageModelList;
     } catch (e) {
       throw Exception(e.toString());

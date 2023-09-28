@@ -8,10 +8,12 @@ class ChatRepository {
     List<ChatModel> chatModelList = [];
 
     try {
-      final chatCollection = await firebaseFirestore.collection('chat').get();
+      final chatCollection = await firebaseFirestore.collection('chat').orderBy("lastMessageDate", descending: false).get();
       chatCollection.docs.forEach((element) {
         chatModelList.add(ChatModel.fromSnap(element));
       });
+      
+
       return chatModelList;
     } catch (e) {
       throw Exception(e.toString());

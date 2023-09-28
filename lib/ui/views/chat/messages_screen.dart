@@ -64,13 +64,21 @@ class _MessagesScreenState extends State<MessagesScreen> {
                         if (state is MessageLoading) {
                           return Expanded(child: loadingWidget());
                         } else if (state.messageModelList.isNotEmpty) {
-                          final messageModelList = state.messageModelList;
+                          final messageModelList =
+                              state.messageModelList.reversed.toList();
                           return Expanded(
                             child: ListView.builder(
+                              reverse: true,
+                              controller: ScrollController(),
+                              scrollDirection: Axis.vertical,
                               itemCount: messageModelList.length,
                               itemBuilder: (context, index) {
-
-                                return reusableMessageWidget(messageModelList[index].message, messageModelList[index].senderUid == firebaseAuth.currentUser!.uid ? true : false);
+                                return reusableMessageWidget(
+                                    messageModelList[index].message,
+                                    messageModelList[index].senderUid ==
+                                            firebaseAuth.currentUser!.uid
+                                        ? true
+                                        : false);
                               },
                             ),
                           );

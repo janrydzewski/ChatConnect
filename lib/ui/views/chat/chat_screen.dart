@@ -59,14 +59,16 @@ class _ChatScreenState extends State<ChatScreen> {
                   if (state is ChatLoading) {
                     return Expanded(child: loadingWidget());
                   } else if (state.chatModelList.isNotEmpty) {
-                    final chatModelList = state.chatModelList;
+                    final chatModelList = state.chatModelList.reversed.toList();
                     return Expanded(
                       child: ListView.builder(
+                        controller: ScrollController(),
                         itemCount: chatModelList.length,
                         itemBuilder: (context, index) {
                           return GestureDetector(
                             onTap: () {
-                              context.go("/chat/message", extra: chatModelList[index].id);
+                              context.go("/chat/message",
+                                  extra: chatModelList[index].id);
                             },
                             child: reusableMainMessageWidget(
                                 chatModel: chatModelList[index]),

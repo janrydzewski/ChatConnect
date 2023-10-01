@@ -4,7 +4,8 @@ import 'package:chat_connect/ui/ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-reusableMainMessageWidget({required ChatModel chatModel, required UserModel receiverModel}) {
+reusableMainMessageWidget(
+    {required ChatModel chatModel, required UserModel receiverModel}) {
   return Container(
     width: 375.w,
     height: 85.h,
@@ -17,10 +18,25 @@ reusableMainMessageWidget({required ChatModel chatModel, required UserModel rece
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
               color: ColorProvider.secondaryBackground.withOpacity(0.8)),
-          child: Icon(
-            Icons.person,
-            size: 65.w,
-          ),
+          child: receiverModel.photoUrl.isNotEmpty
+              ? SizedBox(
+                  width: 65.w,
+                  height: 65.w,
+                  child: Image.network(
+                    receiverModel.photoUrl,
+                    loadingBuilder: (BuildContext context, Widget child,
+                        ImageChunkEvent? loadingProgress) {
+                      if (loadingProgress == null) {
+                        return child;
+                      }
+                      return loadingWidget();
+                    },
+                  ),
+                )
+              : Icon(
+                  Icons.person,
+                  size: 65.w,
+                ),
         ),
         Expanded(
           child: Container(
@@ -30,8 +46,10 @@ reusableMainMessageWidget({required ChatModel chatModel, required UserModel rece
               children: [
                 Container(
                   alignment: Alignment.centerLeft,
-                  child: reusableMessageText("${receiverModel.firstName} ${receiverModel.lastName}",
-                      fontSize: 20, fontColor: ColorProvider.thirdText),
+                  child: reusableMessageText(
+                      "${receiverModel.firstName} ${receiverModel.lastName}",
+                      fontSize: 20,
+                      fontColor: ColorProvider.thirdText),
                 ),
                 Container(
                   alignment: Alignment.centerLeft,
@@ -71,4 +89,3 @@ reusableMainMessageWidget({required ChatModel chatModel, required UserModel rece
     ),
   );
 }
-

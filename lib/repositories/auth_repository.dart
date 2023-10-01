@@ -27,7 +27,7 @@ class AuthRepository {
       );
 
       await firebaseFirestore
-          .collection('users')
+          .collection('user')
           .doc(firebaseAuth.currentUser?.uid)
           .set(userModel.toMap());
     } on FirebaseAuthException catch (e) {

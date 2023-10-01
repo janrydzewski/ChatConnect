@@ -2,21 +2,26 @@ part of 'chat_bloc.dart';
 
 class ChatState extends Equatable {
   final List<ChatModel> chatModelList;
+  final List<UserModel> receiverUserList;
 
   const ChatState({
     List<ChatModel>? chatModelList,
-  }) : chatModelList = chatModelList ?? const [];
+    List<UserModel>? receiverUserList,
+  })  : chatModelList = chatModelList ?? const [],
+        receiverUserList = receiverUserList ?? const [];
 
   ChatState copyWith({
     List<ChatModel>? chatModelList,
+    List<UserModel>? receiverUserList,
   }) {
     return ChatState(
       chatModelList: chatModelList ?? this.chatModelList,
+      receiverUserList: receiverUserList ?? this.receiverUserList,
     );
   }
 
   @override
-  List<Object> get props => [chatModelList];
+  List<Object> get props => [chatModelList, receiverUserList];
 }
 
 class ChatLoading extends ChatState {
@@ -31,8 +36,9 @@ class ChatError extends ChatState {
 
   const ChatError({
     List<ChatModel>? chatModelList,
+    List<UserModel>? receiverUserList,
     required this.message,
-  }) : super(chatModelList: chatModelList);
+  }) : super(chatModelList: chatModelList, receiverUserList: receiverUserList);
 
   @override
   List<Object> get props => [message];

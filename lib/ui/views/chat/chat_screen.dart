@@ -16,6 +16,7 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
+  
   @override
   void initState() {
     context.read<ChatBloc>().add(const GetUserChatsEvent());
@@ -60,6 +61,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     return Expanded(child: loadingWidget());
                   } else if (state.chatModelList.isNotEmpty) {
                     final chatModelList = state.chatModelList.reversed.toList();
+                    final receiverUserList = state.receiverUserList.reversed.toList();
                     return Expanded(
                       child: ListView.builder(
                         controller: ScrollController(),
@@ -71,7 +73,8 @@ class _ChatScreenState extends State<ChatScreen> {
                                   extra: chatModelList[index].id);
                             },
                             child: reusableMainMessageWidget(
-                                chatModel: chatModelList[index]),
+                                chatModel: chatModelList[index],
+                                receiverModel: receiverUserList[index]),
                           );
                         },
                       ),

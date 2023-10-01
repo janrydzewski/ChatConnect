@@ -16,9 +16,9 @@ class MessageRepository {
           .collection("messages")
           .orderBy("date", descending: false)
           .get();
-      messageCollection.docs.forEach((element) {
+      for (var element in messageCollection.docs) {
         messageModelList.add(MessageModel.fromSnap(element));
-      });
+      }
       return messageModelList;
     } catch (e) {
       throw Exception(e.toString());

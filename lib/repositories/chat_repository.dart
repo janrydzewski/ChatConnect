@@ -1,5 +1,7 @@
 import 'package:chat_connect/models/models.dart';
 import 'package:chat_connect/resources/resources.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:core';
 
 class ChatRepository {
   const ChatRepository();
@@ -8,15 +10,52 @@ class ChatRepository {
     List<ChatModel> chatModelList = [];
 
     try {
-      final chatCollection = await firebaseFirestore.collection('chat').orderBy("lastMessageDate", descending: false).get();
-      chatCollection.docs.forEach((element) {
+      final chatCollection = await firebaseFirestore
+          .collection('chat')
+          .orderBy("lastMessageDate", descending: false)
+          .get();
+      for (var element in chatCollection.docs) {
         chatModelList.add(ChatModel.fromSnap(element));
-      });
-      
+      }
 
       return chatModelList;
     } catch (e) {
       throw Exception(e.toString());
     }
+  }
+
+  Future<List<UserModel>> getReceiverNameList(String id) async {
+    try {
+      final chatCollection = await firebaseFirestore
+          .collection('chat')
+          .orderBy("lastMessageDate", descending: false)
+          .get();
+
+      final List<Future<UserModel>> receiverModelListFuture =
+          chatCollection.docs.map((element) async {
+        final model = ChatModel.fromSnap(element);
+        return await getReceiverModel(model.users[0], model.users[1]);
+      }).toList();
+
+      final List<UserModel> receiverModelList =
+          await Future.wait(receiverModelListFuture);
+
+      return receiverModelList;
+    } catch (e) {
+      throw Exception(e.toString());
+    }
+  }
+
+  Future<UserModel> getReceiverModel(String uid1, String uid2) async {
+    final DocumentSnapshot<Map<String, dynamic>> uidDoc;
+    if (uid1 != firebaseAuth.currentUser!.uid) {
+      uidDoc = await firebaseFirestore.collection("user").doc(uid1).get();
+    } else {
+      uidDoc = await firebaseFirestore.collection("user").doc(uid2).get();
+    }
+    final data = uidDoc.data();
+    return UserModel.fromMap(data!);
+
+    
   }
 }

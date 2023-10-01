@@ -4,7 +4,7 @@ import 'package:chat_connect/ui/ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-reusableMainMessageWidget({required ChatModel chatModel}) {
+reusableMainMessageWidget({required ChatModel chatModel, required UserModel receiverModel}) {
   return Container(
     width: 375.w,
     height: 85.h,
@@ -30,7 +30,7 @@ reusableMainMessageWidget({required ChatModel chatModel}) {
               children: [
                 Container(
                   alignment: Alignment.centerLeft,
-                  child: reusableMessageText(chatModel.lastSender,
+                  child: reusableMessageText("${receiverModel.firstName} ${receiverModel.lastName}",
                       fontSize: 20, fontColor: ColorProvider.thirdText),
                 ),
                 Container(

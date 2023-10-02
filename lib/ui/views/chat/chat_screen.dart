@@ -16,7 +16,6 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
-  
   @override
   void initState() {
     context.read<ChatBloc>().add(const GetUserChatsEvent());
@@ -61,7 +60,8 @@ class _ChatScreenState extends State<ChatScreen> {
                     return Expanded(child: loadingWidget());
                   } else if (state.chatModelList.isNotEmpty) {
                     final chatModelList = state.chatModelList.reversed.toList();
-                    final receiverUserList = state.receiverUserList.reversed.toList();
+                    final receiverUserList =
+                        state.receiverUserList.reversed.toList();
                     return Expanded(
                       child: ListView.builder(
                         controller: ScrollController(),
@@ -69,8 +69,11 @@ class _ChatScreenState extends State<ChatScreen> {
                         itemBuilder: (context, index) {
                           return GestureDetector(
                             onTap: () {
-                              context.go("/message",
-                                  extra: chatModelList[index].id);
+                              context.go("/message", extra: {
+                                "chatRoomId": chatModelList[index].id,
+                                "receiverName":
+                                    "${receiverUserList[index].firstName} ${receiverUserList[index].lastName}"
+                              });
                             },
                             child: reusableMainMessageWidget(
                                 chatModel: chatModelList[index],

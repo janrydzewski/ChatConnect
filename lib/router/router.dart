@@ -68,10 +68,11 @@ class MyRouter {
         name: "Message",
         path: '/message',
         pageBuilder: (context, state) {
-          final chatId = state.extra as String;
+          final map = state.extra as Map<String, String>;
           return CustomTransitionPage(
             child: MessagesScreen(
-              chatId: chatId,
+              chatId: map['chatRoomId']!,
+              receiverName: map['receiverName']!,
             ),
             transitionsBuilder:
                 (context, animation, secondaryAnimation, child) =>

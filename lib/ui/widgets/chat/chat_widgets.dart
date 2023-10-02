@@ -70,8 +70,20 @@ reusableMainMessageWidget(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               reusableMessageText(
-                  "${DateTime.now().difference(chatModel.lastMessageDate).inMinutes} minutes",
-                  fontSize: 13),
+                DateTime.now().difference(chatModel.lastMessageDate).inMinutes >
+                        1440
+                    ? "${DateTime.now().difference(chatModel.lastMessageDate).inDays} days"
+                    : DateTime.now()
+                                .difference(chatModel.lastMessageDate)
+                                .inMinutes >
+                            60
+                        ? "${DateTime.now().difference(chatModel.lastMessageDate).inHours} hours"
+                        : DateTime.now()
+                                .difference(chatModel.lastMessageDate)
+                                .inMinutes >
+                            0 ? "${DateTime.now().difference(chatModel.lastMessageDate).inMinutes} minutes" : "now",
+                fontSize: 12,
+              ),
               Container(
                 width: 30.w,
                 height: 30.w,

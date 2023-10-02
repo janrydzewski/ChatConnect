@@ -1,4 +1,5 @@
 import 'package:chat_connect/bloc/bloc.dart';
+import 'package:chat_connect/models/models.dart';
 import 'package:chat_connect/resources/resources.dart';
 import 'package:chat_connect/ui/ui.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +8,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class MessagesScreen extends StatefulWidget {
   final String chatId;
-  const MessagesScreen({super.key, required this.chatId});
+  final String receiverName;
+  const MessagesScreen(
+      {super.key, required this.chatId, required this.receiverName});
 
   @override
   State<MessagesScreen> createState() => _MessagesScreenState();
@@ -29,7 +32,7 @@ class _MessagesScreenState extends State<MessagesScreen> {
       height: 812.h,
       child: Scaffold(
         backgroundColor: ColorProvider.secondaryBackground,
-        appBar: reusableMessageAppBar("Martyna Pietranik", context),
+        appBar: reusableMessageAppBar(widget.receiverName, context),
         body: Column(
           children: [
             Expanded(
@@ -106,50 +109,59 @@ class _MessagesScreenState extends State<MessagesScreen> {
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15),
                     color: ColorProvider.toMessage),
-                child: Row(children: [
-                  GestureDetector(
-                    child: Container(
-                      width: 35.w,
-                      height: 35.w,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        color: ColorProvider.fromMessage,
-                      ),
-                      child: const Icon(
-                        Icons.add,
-                        color: ColorProvider.mainBackground,
-                      ),
-                    ),
-                  ),
-                  Expanded(child: reusableMessageTextField(_messageController)),
-                  GestureDetector(
-                    child: Container(
-                      width: 35.w,
-                      height: 35.w,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        color: ColorProvider.fromMessage,
-                      ),
-                      child: Icon(
-                        Icons.play_arrow,
-                        color: ColorProvider.mainBackground,
+                child: Row(
+                  children: [
+                    GestureDetector(
+                      child: Container(
+                        width: 35.w,
+                        height: 35.w,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15),
+                          color: ColorProvider.fromMessage,
+                        ),
+                        child: const Icon(
+                          Icons.add,
+                          color: ColorProvider.mainBackground,
+                        ),
                       ),
                     ),
-                  ),
-                ]),
+                    Expanded(
+                      child: reusableMessageTextField(_messageController),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        context.read<MessageBloc>().add(
+                              SendMessageEvent(
+                                widget.chatId,
+                                MessageModel(
+                                  id: "",
+                                  senderUid: firebaseAuth.currentUser!.uid,
+                                  message: _messageController.text,
+                                  date: DateTime.now(),
+                                ),
+                              ),
+                            );
+                        _messageController.clear();
+                      },
+                      child: Container(
+                        width: 35.w,
+                        height: 35.w,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15),
+                          color: ColorProvider.fromMessage,
+                        ),
+                        child: const Icon(
+                          Icons.play_arrow,
+                          color: ColorProvider.mainBackground,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ],
         ),
-        // floatingActionButton: FloatingActionButton(onPressed: () {
-        //   context.read<MessageBloc>().add(SendMessageEvent(
-        //       widget.chatId,
-        //       MessageModel(
-        //           id: "123",
-        //           senderUid: firebaseAuth.currentUser!.uid,
-        //           message: "Test Message",
-        //           date: DateTime.now())));
-        // }),
       ),
     );
   }

@@ -27,11 +27,24 @@ class MessageRepository {
 
   Future<void> sendMessage(String id, MessageModel messageModel) async {
     try {
-      await firebaseFirestore
+      final documentRef = await firebaseFirestore
           .collection("chat")
           .doc(id)
           .collection("messages")
           .add(messageModel.toMap());
+
+      await firebaseFirestore
+          .collection("chat")
+          .doc(id)
+          .collection("messages")
+          .doc(documentRef.id)
+          .update({"id": documentRef.id});
+
+      await firebaseFirestore
+          .collection("chat")
+          .doc(id)
+          .update({"lastMessage": messageModel.message, "lastSender": messageModel.senderUid, "lastMessageDate": messageModel.date.millisecondsSinceEpoch});
+
     } catch (e) {
       throw Exception(e.toString());
     }

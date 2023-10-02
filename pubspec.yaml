@@ -46,6 +46,7 @@ dependencies:
   firebase_core: ^2.16.0
   image_picker: ^1.0.4
   firebase_storage: ^11.2.7
+  animated_snack_bar: ^0.3.1
 
 dev_dependencies:
   flutter_test:

@@ -15,6 +15,7 @@ reusableMainMessageWidget(
         Container(
           width: 75.w,
           height: 75.w,
+          margin: EdgeInsets.only(right: 5.w),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
               color: ColorProvider.secondaryBackground.withOpacity(0.8)),
@@ -66,10 +67,7 @@ reusableMainMessageWidget(
         ),
         SizedBox(
           width: 65.w,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              reusableMessageText(
+          child: reusableMessageText(
                 DateTime.now().difference(chatModel.lastMessageDate).inMinutes >
                         1440
                     ? "${DateTime.now().difference(chatModel.lastMessageDate).inDays} days"
@@ -84,18 +82,6 @@ reusableMainMessageWidget(
                             0 ? "${DateTime.now().difference(chatModel.lastMessageDate).inMinutes} minutes" : "now",
                 fontSize: 12,
               ),
-              Container(
-                width: 30.w,
-                height: 30.w,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Colors.blue,
-                ),
-                alignment: Alignment.center,
-                child: reusableMessageText("1", fontSize: 16),
-              ),
-            ],
-          ),
         ),
       ],
     ),

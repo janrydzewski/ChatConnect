@@ -71,7 +71,7 @@ class MyApp extends StatelessWidget {
           BlocProvider(
             create: (context) => MessageBloc(
                 messageRepository:
-                    RepositoryProvider.of<MessageRepository>(context)),
+                    RepositoryProvider.of<MessageRepository>(context), roomId: ""),
           ),
         ],
         child: ScreenUtilInit(

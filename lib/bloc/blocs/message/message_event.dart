@@ -8,11 +8,12 @@ class MessageEvent extends Equatable {
 }
 
 class GetMessagesEvent extends MessageEvent {
+  final List<MessageModel> messageModelList;
   final String id;
-  const GetMessagesEvent(this.id);
+  const GetMessagesEvent(this.messageModelList, this.id);
 
   @override
-  List<Object> get props => [id];
+  List<Object> get props => [messageModelList, id];
 }
 
 class SendMessageEvent extends MessageEvent {

@@ -6,20 +6,21 @@ import 'package:chat_connect/resources/resources.dart';
 class MessageRepository {
   const MessageRepository();
 
-  Future<List<MessageModel>> getMessagesList(String id) async {
-    List<MessageModel> messageModelList = [];
-
+  Stream<List<MessageModel>> getMessagesListStream(String id) {
     try {
-      final messageCollection = await firebaseFirestore
+      final messageCollection = firebaseFirestore
           .collection("chat")
           .doc(id)
           .collection("messages")
           .orderBy("date", descending: false)
-          .get();
-      for (var element in messageCollection.docs) {
-        messageModelList.add(MessageModel.fromSnap(element));
-      }
-      return messageModelList;
+          .snapshots();
+      return messageCollection.map((querySnapshot) {
+        List<MessageModel> messageModelList = [];
+        for (var element in querySnapshot.docs) {
+          messageModelList.add(MessageModel.fromSnap(element));
+        }
+        return messageModelList;
+      });
     } catch (e) {
       throw Exception(e.toString());
     }
@@ -40,11 +41,11 @@ class MessageRepository {
           .doc(documentRef.id)
           .update({"id": documentRef.id});
 
-      await firebaseFirestore
-          .collection("chat")
-          .doc(id)
-          .update({"lastMessage": messageModel.message, "lastSender": messageModel.senderUid, "lastMessageDate": messageModel.date.millisecondsSinceEpoch});
-
+      await firebaseFirestore.collection("chat").doc(id).update({
+        "lastMessage": messageModel.message,
+        "lastSender": messageModel.senderUid,
+        "lastMessageDate": messageModel.date.millisecondsSinceEpoch
+      });
     } catch (e) {
       throw Exception(e.toString());
     }

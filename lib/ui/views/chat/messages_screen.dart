@@ -1,5 +1,6 @@
 import 'package:chat_connect/bloc/bloc.dart';
 import 'package:chat_connect/models/models.dart';
+import 'package:chat_connect/repositories/message_repository.dart';
 import 'package:chat_connect/resources/resources.dart';
 import 'package:chat_connect/ui/ui.dart';
 import 'package:flutter/material.dart';
@@ -18,10 +19,11 @@ class MessagesScreen extends StatefulWidget {
 
 class _MessagesScreenState extends State<MessagesScreen> {
   final _messageController = TextEditingController();
+  late final messageBloc;
 
   @override
   void initState() {
-    context.read<MessageBloc>().add(GetMessagesEvent(widget.chatId));
+    messageBloc = MessageBloc(messageRepository: RepositoryProvider.of<MessageRepository>(context), roomId: widget.chatId);
     super.initState();
   }
 
@@ -58,6 +60,7 @@ class _MessagesScreenState extends State<MessagesScreen> {
                     child: reusableMessageText("Today", fontSize: 14),
                   ),
                   BlocConsumer<MessageBloc, MessageState>(
+                    bloc: messageBloc,
                     listener: (context, state) {
                       if (state is MessageError) {
                         print(state.message);
@@ -130,17 +133,24 @@ class _MessagesScreenState extends State<MessagesScreen> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        context.read<MessageBloc>().add(
-                              SendMessageEvent(
-                                widget.chatId,
+                        // messageBloc.add(
+                        //       SendMessageEvent(
+                        //         widget.chatId,
+                        //         MessageModel(
+                        //           id: "",
+                        //           senderUid: firebaseAuth.currentUser!.uid,
+                        //           message: _messageController.text,
+                        //           date: DateTime.now(),
+                        //         ),
+                        //       ),
+                        //     );
+                        MessageRepository().sendMessage(widget.chatId,
                                 MessageModel(
                                   id: "",
                                   senderUid: firebaseAuth.currentUser!.uid,
                                   message: _messageController.text,
                                   date: DateTime.now(),
-                                ),
-                              ),
-                            );
+                                ),);
                         _messageController.clear();
                       },
                       child: Container(

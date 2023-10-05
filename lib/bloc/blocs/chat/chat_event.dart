@@ -8,8 +8,9 @@ class ChatEvent extends Equatable {
 }
 
 class GetUserChatsEvent extends ChatEvent {
-  const GetUserChatsEvent();
+  final List<ChatModel> chatModelList;
+  const GetUserChatsEvent(this.chatModelList);
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [chatModelList];
 }

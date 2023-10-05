@@ -17,12 +17,6 @@ class ChatScreen extends StatefulWidget {
 
 class _ChatScreenState extends State<ChatScreen> {
   @override
-  void initState() {
-    context.read<ChatBloc>().add(const GetUserChatsEvent());
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: 375.w,

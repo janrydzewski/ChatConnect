@@ -6,19 +6,22 @@ import 'dart:core';
 class ChatRepository {
   const ChatRepository();
 
-  Future<List<ChatModel>> getChatModelList(String uid) async {
-    List<ChatModel> chatModelList = [];
-
+  Stream<List<ChatModel>> getChatModelListStream(String uid) {
     try {
-      final chatCollection = await firebaseFirestore
+      final chatCollection = firebaseFirestore
           .collection('chat')
           .orderBy("lastMessageDate", descending: false)
-          .get();
-      for (var element in chatCollection.docs) {
-        chatModelList.add(ChatModel.fromSnap(element));
-      }
+          .where("users", arrayContains: uid)
+          .snapshots();
 
-      return chatModelList;
+      return chatCollection.map((querySnapshot) {
+        List<ChatModel> chatModelList = [];
+        for (var element in querySnapshot.docs) {
+          chatModelList.add(ChatModel.fromSnap(element));
+        }
+        return chatModelList;
+      }
+      );
     } catch (e) {
       throw Exception(e.toString());
     }
@@ -29,6 +32,7 @@ class ChatRepository {
       final chatCollection = await firebaseFirestore
           .collection('chat')
           .orderBy("lastMessageDate", descending: false)
+          .where("users", arrayContains: firebaseAuth.currentUser!.uid)
           .get();
 
       final List<Future<UserModel>> receiverModelListFuture =
@@ -55,7 +59,5 @@ class ChatRepository {
     }
     final data = uidDoc.data();
     return UserModel.fromMap(data!);
-
-    
   }
 }

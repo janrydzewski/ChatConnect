@@ -1,4 +1,5 @@
 import 'package:chat_connect/bloc/bloc.dart';
+import 'package:chat_connect/repositories/repositories.dart';
 import 'package:chat_connect/ui/ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -51,8 +52,13 @@ class _SearchScreenState extends State<SearchScreen> {
                         itemCount: state.userModelList.length,
                         itemBuilder: (context, index) {
                           return GestureDetector(
-                            onTap: () {},
-                            child: reusableUserModelElement(state.userModelList[index]),
+                            onTap: () async {
+                              await const SearchUserRepository()
+                                  .isAlreadyUsersHaveRoom(
+                                      state.userModelList[index], context);
+                            },
+                            child: reusableUserModelElement(
+                                state.userModelList[index]),
                           );
                         },
                       ),

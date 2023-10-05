@@ -91,13 +91,7 @@ class _MessagesScreenState extends State<MessagesScreen> {
                           ),
                         );
                       }
-                      return const Expanded(
-                        child: Center(
-                          child: CircularProgressIndicator(
-                            color: ColorProvider.mainElement,
-                          ),
-                        ),
-                      );
+                      return Container();
                     },
                   ),
                 ]),

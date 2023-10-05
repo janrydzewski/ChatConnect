@@ -61,4 +61,6 @@ class ChatRepository {
     final data = uidDoc.data();
     return UserModel.fromMap(data!);
   }
+
+  
 }

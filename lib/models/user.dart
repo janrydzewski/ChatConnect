@@ -68,6 +68,9 @@ class UserModel {
   factory UserModel.fromJson(String source) =>
       UserModel.fromMap(json.decode(source) as Map<String, dynamic>);
 
+  factory UserModel.empty() => 
+      const UserModel(id: "", firstName: "", lastName: "", email: "", photoUrl: "");
+
   @override
   String toString() {
     return 'UserModel(id: $id, firstName: $firstName, lastName: $lastName, email: $email, photoUrl: $photoUrl)';

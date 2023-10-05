@@ -34,4 +34,10 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       emit(ChatError(message: e.toString()));
     }
   }
+
+  @override
+  Future<void> close() {
+    listChatModelSubscription.cancel();
+    return super.close();
+  }
 }

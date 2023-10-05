@@ -31,7 +31,9 @@ class _ChatScreenState extends State<ChatScreen> {
                 margin: EdgeInsets.symmetric(horizontal: 10.w),
                 alignment: Alignment.centerRight,
                 child: IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    context.go("/chat/search");
+                  },
                   icon: Icon(
                     Icons.search_outlined,
                     size: 35.w,

@@ -20,8 +20,7 @@ class ChatRepository {
           chatModelList.add(ChatModel.fromSnap(element));
         }
         return chatModelList;
-      }
-      );
+      });
     } catch (e) {
       throw Exception(e.toString());
     }
@@ -52,10 +51,12 @@ class ChatRepository {
 
   Future<UserModel> getReceiverModel(String uid1, String uid2) async {
     final DocumentSnapshot<Map<String, dynamic>> uidDoc;
-    if (uid1 != firebaseAuth.currentUser!.uid) {
+    if (uid1 == firebaseAuth.currentUser!.uid) {
+      uidDoc = await firebaseFirestore.collection("user").doc(uid2).get();
+    } else if (uid2 == firebaseAuth.currentUser!.uid) {
       uidDoc = await firebaseFirestore.collection("user").doc(uid1).get();
     } else {
-      uidDoc = await firebaseFirestore.collection("user").doc(uid2).get();
+      return UserModel.empty();
     }
     final data = uidDoc.data();
     return UserModel.fromMap(data!);

@@ -19,11 +19,13 @@ class MessagesScreen extends StatefulWidget {
 
 class _MessagesScreenState extends State<MessagesScreen> {
   final _messageController = TextEditingController();
-  late final messageBloc;
+  late MessageBloc messageBloc;
 
   @override
   void initState() {
-    messageBloc = MessageBloc(messageRepository: RepositoryProvider.of<MessageRepository>(context), roomId: widget.chatId);
+    messageBloc = MessageBloc(
+        messageRepository: RepositoryProvider.of<MessageRepository>(context),
+        roomId: widget.chatId);
     super.initState();
   }
 
@@ -133,24 +135,18 @@ class _MessagesScreenState extends State<MessagesScreen> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        // messageBloc.add(
-                        //       SendMessageEvent(
-                        //         widget.chatId,
-                        //         MessageModel(
-                        //           id: "",
-                        //           senderUid: firebaseAuth.currentUser!.uid,
-                        //           message: _messageController.text,
-                        //           date: DateTime.now(),
-                        //         ),
-                        //       ),
-                        //     );
-                        MessageRepository().sendMessage(widget.chatId,
-                                MessageModel(
-                                  id: "",
-                                  senderUid: firebaseAuth.currentUser!.uid,
-                                  message: _messageController.text,
-                                  date: DateTime.now(),
-                                ),);
+                        messageBloc.add(
+                          SendMessageEvent(
+                            widget.chatId,
+                            MessageModel(
+                              id: "",
+                              senderUid: firebaseAuth.currentUser!.uid,
+                              message: _messageController.text,
+                              date: DateTime.now(),
+                            ),
+                          ),
+                        );
+
                         _messageController.clear();
                       },
                       child: Container(

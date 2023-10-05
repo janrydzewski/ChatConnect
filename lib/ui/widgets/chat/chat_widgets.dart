@@ -68,20 +68,22 @@ reusableMainMessageWidget(
         SizedBox(
           width: 65.w,
           child: reusableMessageText(
-                DateTime.now().difference(chatModel.lastMessageDate).inMinutes >
-                        1440
-                    ? "${DateTime.now().difference(chatModel.lastMessageDate).inDays} days"
+            DateTime.now().difference(chatModel.lastMessageDate).inMinutes >
+                    1440
+                ? "${DateTime.now().difference(chatModel.lastMessageDate).inDays} days"
+                : DateTime.now()
+                            .difference(chatModel.lastMessageDate)
+                            .inMinutes >
+                        60
+                    ? "${DateTime.now().difference(chatModel.lastMessageDate).inHours} hours"
                     : DateTime.now()
                                 .difference(chatModel.lastMessageDate)
                                 .inMinutes >
-                            60
-                        ? "${DateTime.now().difference(chatModel.lastMessageDate).inHours} hours"
-                        : DateTime.now()
-                                .difference(chatModel.lastMessageDate)
-                                .inMinutes >
-                            0 ? "${DateTime.now().difference(chatModel.lastMessageDate).inMinutes} minutes" : "now",
-                fontSize: 12,
-              ),
+                            0
+                        ? "${DateTime.now().difference(chatModel.lastMessageDate).inMinutes} minutes"
+                        : "now",
+            fontSize: 12,
+          ),
         ),
       ],
     ),

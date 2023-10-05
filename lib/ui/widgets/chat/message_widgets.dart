@@ -8,7 +8,6 @@ import 'package:google_fonts/google_fonts.dart';
 reusableMessageWidget(String text, bool amISender) {
   return Container(
     width: 200.w,
-    //height: 70.h,
     margin: EdgeInsets.only(
         top: 10.h,
         bottom: 10.h,

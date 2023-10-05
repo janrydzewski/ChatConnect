@@ -49,6 +49,16 @@ class MyRouter {
             pageBuilder: (context, state) {
               return const NoTransitionPage(child: ChatScreen());
             },
+            routes: <RouteBase>[
+              GoRoute(
+            name: 'Search',
+            path: 'search',
+            pageBuilder: (context, state) {
+              return const NoTransitionPage(child: SearchScreen());
+            },
+            
+          ),
+            ]
           ),
           GoRoute(
             name: 'Profile',

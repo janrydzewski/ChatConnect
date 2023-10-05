@@ -46,6 +46,9 @@ class MyApp extends StatelessWidget {
         RepositoryProvider(
           create: (context) => const MessageRepository(),
         ),
+        RepositoryProvider(
+          create: (context) => const SearchUserRepository(),
+        ),
       ],
       child: MultiBlocProvider(
         providers: [
@@ -71,7 +74,13 @@ class MyApp extends StatelessWidget {
           BlocProvider(
             create: (context) => MessageBloc(
                 messageRepository:
-                    RepositoryProvider.of<MessageRepository>(context), roomId: ""),
+                    RepositoryProvider.of<MessageRepository>(context),
+                roomId: ""),
+          ),
+          BlocProvider(
+            create: (context) => SearchUserBloc(
+                searchUserRepository:
+                    RepositoryProvider.of<SearchUserRepository>(context)),
           ),
         ],
         child: ScreenUtilInit(

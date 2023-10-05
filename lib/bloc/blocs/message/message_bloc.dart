@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:chat_connect/models/models.dart';
 import 'package:chat_connect/repositories/repositories.dart';
-import 'package:chat_connect/resources/resources.dart';
 import 'package:equatable/equatable.dart';
 
 part 'message_event.dart';
@@ -14,7 +13,8 @@ class MessageBloc extends Bloc<MessageEvent, MessageState> {
   final String roomId;
   late StreamSubscription<List<MessageModel>> listMessageModelSubscription;
 
-  MessageBloc({required this.messageRepository, required this.roomId}) : super(const MessageState()) {
+  MessageBloc({required this.messageRepository, required this.roomId})
+      : super(const MessageState()) {
     on<GetMessagesEvent>(_onGetMessageEvent);
     on<SendMessageEvent>(_onSendMessageEvent);
     listMessageModelSubscription = messageRepository
@@ -36,12 +36,12 @@ class MessageBloc extends Bloc<MessageEvent, MessageState> {
 
   _onSendMessageEvent(
       SendMessageEvent event, Emitter<MessageState> emit) async {
-    emit(const MessageLoading());
-    try {
-      await messageRepository.sendMessage(event.id, event.messageModel);
-      emit(MessageState(messageModelList: []));
-    } catch (e) {
-      emit(MessageError(message: e.toString()));
-    }
+    await messageRepository.sendMessage(event.id, event.messageModel);
+  }
+
+  @override
+  Future<void> close() {
+    listMessageModelSubscription.cancel();
+    return super.close();
   }
 }

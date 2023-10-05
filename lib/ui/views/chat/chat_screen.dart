@@ -5,7 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:chat_connect/bloc/bloc.dart';
-import 'package:chat_connect/resources/resources.dart';
 import 'package:chat_connect/ui/ui.dart';
 
 class ChatScreen extends StatefulWidget {

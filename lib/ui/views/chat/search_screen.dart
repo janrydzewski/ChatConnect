@@ -23,6 +23,9 @@ class _SearchScreenState extends State<SearchScreen> {
         body: SafeArea(
           child: Column(
             children: [
+              SizedBox(
+                height: 50.h,
+              ),
               reusableSearchBarWidget(
                 textEditingController,
                 () {
@@ -31,10 +34,8 @@ class _SearchScreenState extends State<SearchScreen> {
                       .add(GetSearchedListEvent(textEditingController.text));
                 },
               ),
-              Container(
-                alignment: Alignment.centerLeft,
-                margin: EdgeInsets.symmetric(horizontal: 25.w),
-                child: reusableText("Search", fontSize: 34),
+              SizedBox(
+                height: 25.h,
               ),
               BlocConsumer<SearchUserBloc, SearchUserState>(
                 listener: (context, state) {
@@ -64,7 +65,15 @@ class _SearchScreenState extends State<SearchScreen> {
                       ),
                     );
                   }
-                  return Container();
+                  return Expanded(
+                    child: Container(
+                      alignment: Alignment.center,
+                      child: reusableMessageText(
+                        "Search for Users",
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                  );
                 },
               ),
             ],

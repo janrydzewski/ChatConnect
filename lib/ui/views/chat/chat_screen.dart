@@ -79,12 +79,15 @@ class _ChatScreenState extends State<ChatScreen> {
                       ),
                     );
                   }
-                  return const Expanded(
-                      child: Center(
-                    child: CircularProgressIndicator(
-                      color: ColorProvider.mainElement,
+                  return Expanded(
+                    child: Container(
+                      alignment: Alignment.center,
+                      child: reusableMessageText(
+                        "Search for Users",
+                        fontWeight: FontWeight.w400,
+                      ),
                     ),
-                  ));
+                  );
                 },
               ),
             ],

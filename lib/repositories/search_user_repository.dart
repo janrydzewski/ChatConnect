@@ -15,7 +15,9 @@ class SearchUserRepository {
         final userModel = UserModel.fromSnap(element);
         if ("${userModel.firstName.toLowerCase()} ${userModel.lastName.toLowerCase()}"
             .contains(searchingText.toLowerCase())) {
-          userModelList.add(UserModel.fromSnap(element));
+          if (userModel.id != firebaseAuth.currentUser!.uid) {
+            userModelList.add(UserModel.fromSnap(element));
+          }
         }
       }
       return userModelList;
@@ -36,14 +38,16 @@ class SearchUserRepository {
           "chatRoomId": chatModel.id,
           "receiverName": "${userModel.firstName} ${userModel.lastName}"
         });
+        return;
       }
     }
     final roomId = await createRoom(userModel.id);
     // ignore: use_build_context_synchronously
     context.go("/message", extra: {
-          "chatRoomId": roomId,
-          "receiverName": "${userModel.firstName} ${userModel.lastName}"
-        });
+      "chatRoomId": roomId,
+      "receiverName": "${userModel.firstName} ${userModel.lastName}"
+    });
+    return;
   }
 
   Future<String> createRoom(String uid1) async {
@@ -53,8 +57,12 @@ class SearchUserRepository {
         lastSender: "",
         lastMessage: "",
         lastMessageDate: DateTime.now());
-    final documentRef = await firebaseFirestore.collection("chat").add(chatModel.toMap());
-    await firebaseFirestore.collection("chat").doc(documentRef.id).update({"id": documentRef.id});
+    final documentRef =
+        await firebaseFirestore.collection("chat").add(chatModel.toMap());
+    await firebaseFirestore
+        .collection("chat")
+        .doc(documentRef.id)
+        .update({"id": documentRef.id});
     return documentRef.id;
   }
 }

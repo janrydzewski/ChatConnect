@@ -8,7 +8,7 @@ class MyRouter {
       GlobalKey<NavigatorState>();
 
   late final GoRouter router = GoRouter(
-    initialLocation: firebaseAuth.currentUser == null ? '/signIn' : '/home',
+    initialLocation: firebaseAuth.currentUser == null ? '/signIn' : '/community',
     navigatorKey: _rootNavigatorKey,
     routes: [
       GoRoute(
@@ -35,14 +35,11 @@ class MyRouter {
         },
         routes: <RouteBase>[
           GoRoute(
-            name: 'Home',
-            path: '/home',
+            name: 'Community',
+            path: '/community',
             pageBuilder: (context, state) {
-              return const NoTransitionPage(
-                child: Text(
-                  "Home",
-                  style: TextStyle(color: Colors.black),
-                ),
+              return  const NoTransitionPage(
+                child: CommunityScreen(),
               );
             },
           ),

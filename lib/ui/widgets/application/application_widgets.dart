@@ -47,7 +47,7 @@ Widget bottomNavigationBarWidget() {
                   ],
                 ),
                 onTap: () {
-                  context.go('/home');
+                  context.go('/community');
                   context
                       .read<ApplicationBloc>()
                       .add(const ChangeApplicationIndexEvent(0));

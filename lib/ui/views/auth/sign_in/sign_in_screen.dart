@@ -29,7 +29,7 @@ class _SignUpScreenState extends State<SignInScreen> {
             child: BlocConsumer<AuthBloc, AuthState>(
               listener: (context, state) {
                 if (state.authStatus == AuthStatus.authenticated) {
-                  context.go('/home');
+                  context.go('/community');
                 }
                 if (state.authStatus == AuthStatus.error) {
                   showSnackBarError(context, state.message);

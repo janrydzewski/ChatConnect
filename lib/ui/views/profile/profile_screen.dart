@@ -52,7 +52,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               Container(
                 alignment: Alignment.centerLeft,
                 margin: EdgeInsets.symmetric(horizontal: 25.w),
-                child: reusableText("Chat", fontSize: 34),
+                child: reusableText("Profile", fontSize: 34),
               ),
               Expanded(
                 child: Container(
@@ -84,8 +84,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         .withOpacity(0.5)),
                                 child: state.userModel.photoUrl.isNotEmpty
                                     ? SizedBox(
-                                        width: 80.w,
-                                        height: 80.h,
+                                        width:  140.w,
+                                        height: 140.h,
                                         child: Image.network(
                                           state.userModel.photoUrl,
                                           loadingBuilder: (BuildContext context,

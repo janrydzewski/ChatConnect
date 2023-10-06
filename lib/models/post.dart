@@ -54,7 +54,7 @@ class PostModel {
       authorId: snapshot['authorId'],
       message: snapshot['message'],
       date: DateTime.fromMillisecondsSinceEpoch(
-          snapshot['lastMessageDate'] as int),
+          snapshot['date'] as int),
     );
   }
 

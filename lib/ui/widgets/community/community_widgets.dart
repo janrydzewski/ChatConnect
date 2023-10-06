@@ -67,7 +67,11 @@ reusablePostModelElement(PostModel postModel, UserModel userModel) {
           SizedBox(
             height: 10.h,
           ),
-          reusableMessageText(postModel.message, fontSize: 12, maxLines: 100),
+          SizedBox(
+            width: 375.w,
+            child: reusableMessageText(postModel.message,
+                fontSize: 12, maxLines: 100),
+          ),
         ],
       ));
 }

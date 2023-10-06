@@ -49,6 +49,9 @@ class MyApp extends StatelessWidget {
         RepositoryProvider(
           create: (context) => const SearchUserRepository(),
         ),
+        RepositoryProvider(
+          create: (context) => const CommunityRepository(),
+        ),
       ],
       child: MultiBlocProvider(
         providers: [
@@ -81,6 +84,11 @@ class MyApp extends StatelessWidget {
             create: (context) => SearchUserBloc(
                 searchUserRepository:
                     RepositoryProvider.of<SearchUserRepository>(context)),
+          ),
+          BlocProvider(
+            create: (context) => CommunityBloc(
+                communityRepository:
+                    RepositoryProvider.of<CommunityRepository>(context)),
           ),
         ],
         child: ScreenUtilInit(
